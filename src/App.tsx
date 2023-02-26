@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom"
 import Login from "./components/LoginPage";
 import HomePage from "./components/PostPage";
-import UserList from "./components/UserList";
+//import UserList from "./components/UserList";
 
 const App: React.FC = () => {
   const [loggedInUser, setLoggedInUser] = useState<string | null>(null);
