@@ -1,24 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom"
+import Login from "./components/LoginPage";
+import HomePage from "./components/PostPage";
+import UserList from "./components/UserList";
 
-function App() {
+const App: React.FC = () => {
+  const [loggedInUser, setLoggedInUser] = useState<string | null>(null);
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        {loggedInUser ? (
+          <Route path="/" element={ <HomePage loggedInUser={loggedInUser} /> } />
+        ) : (
+          <Route path="/" element={ <Login setLoggedInUser={setLoggedInUser} /> } />
+        )}
+      </Routes>
     </div>
   );
 }
