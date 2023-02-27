@@ -42,11 +42,11 @@ type Post = {
   body: string;
 };
 
-type HomePageProps = {
+type PostPageProps = {
   loggedInUser: string;
 };
 
-const HomePage: React.FC<HomePageProps> = ({ loggedInUser }) => {
+const PostPage: React.FC<PostPageProps> = ({ loggedInUser }) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [newPost, setNewPost] = useState<Post>({ id: 0, userId: 0, title: "", body: "" });
   const [users, setUsers] = useState<User[]>([]);
@@ -62,26 +62,26 @@ const HomePage: React.FC<HomePageProps> = ({ loggedInUser }) => {
       setPosts(data);
     };
 
-    const fetchUsers = async () => {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/users"
-      );
-      const data = await response.json();
-      setUsers(data);
-    };
+  const fetchUsers = async () => {
+    const response = await fetch(
+      "https://jsonplaceholder.typicode.com/users"
+    );
+    const data = await response.json();
+    setUsers(data);
+  };
 
-    const fetchComments = async () => {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/comments"
-      );
-      const data = await response.json();
-      setComments(data);
-    };
+  const fetchComments = async () => {
+    const response = await fetch(
+      "https://jsonplaceholder.typicode.com/comments"
+    );
+    const data = await response.json();
+    setComments(data);
+  };
 
-    fetchPosts();
-    fetchUsers();
-    fetchComments();
-  }, []);
+  fetchPosts();
+  fetchUsers();
+  fetchComments();
+}, []);
 
   const handleAddPost = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -170,8 +170,8 @@ const HomePage: React.FC<HomePageProps> = ({ loggedInUser }) => {
                     <div className="comment-count">{postComments.length}</div>
                   </button>
                   <button onClick={() => handleDeletePost(post.id, loggedInUser)}>
-              Delete Post
-            </button>
+                    Delete Post
+                  </button>
                 </div>
               </div>
             </div>
@@ -182,4 +182,4 @@ const HomePage: React.FC<HomePageProps> = ({ loggedInUser }) => {
   );
 };
 
-export default HomePage;
+export default PostPage;

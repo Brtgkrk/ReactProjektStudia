@@ -1,0 +1,15 @@
+.album-body
+{
+    width: 35vw;
+}
+
+.album-container
+{
+    cursor: pointer;
+}
+
+#album-photo
+{
+    width: 50px;
+    float: left;
+}
