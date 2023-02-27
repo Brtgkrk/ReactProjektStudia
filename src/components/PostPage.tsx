@@ -43,11 +43,12 @@ type Post = {
 };
 
 type HomePageProps = {
-  loggedInUser: string | null;
+  loggedInUser: string;
 };
 
 const HomePage: React.FC<HomePageProps> = ({ loggedInUser }) => {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [newPost, setNewPost] = useState<Post>({ id: 0, userId: 0, title: "", body: "" });
   const [users, setUsers] = useState<User[]>([]);
   const [comments, setComments] = useState<Comment[]>([]);
   const navigate = useNavigate();
@@ -82,9 +83,69 @@ const HomePage: React.FC<HomePageProps> = ({ loggedInUser }) => {
     fetchComments();
   }, []);
 
+  const handleAddPost = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const highestId = Math.max(...posts.map((p) => p.id));
+    const newId = highestId + 1;
+    
+    if (newPost.title.trim() && newPost.body.trim() && newId) {
+      setPosts([...posts, newPost]);
+      setNewPost({ id: 0, userId: 0, title: "", body: "" });
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setNewPost((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleDeletePost = async (id: number, userName: string) => {
+    if (loggedInUser === undefined || loggedInUser === null) {
+      alert("Musisz się zalogować, aby usunąć post!");
+      return;
+    }
+    const post = posts.find(post => post.id === id);
+    if (post) {
+      const user = users.find(user => user.id === post.userId);
+      if (user) {
+        if (user.name !== userName) {
+          alert("Nie masz uprawnień do usunięcia tego posta!");
+          return;
+        }
+      }
+    }
+    await deletePost(id);
+    //const data = await fetchPosts();
+    //setPosts(data);
+  };
+
+  const deletePost = (id: number) => {
+    setPosts(posts.filter((post) => post.id !== id));
+  };
+  
+
   return (
     <div>
       <NavigationBar loggedInUser={loggedInUser}/>
+
+      <h1>Posts</h1>
+      <form onSubmit={handleAddPost}>
+        <input
+          type="text"
+          name="title"
+          placeholder="Enter a title"
+          value={newPost.title}
+          onChange={handleInputChange}
+        />
+        <textarea
+          name="body"
+          placeholder="Enter a body"
+          value={newPost.body}
+          onChange={handleInputChange}
+        />
+        <button type="submit">Add Post</button>
+      </form>
+
       <div className="post-container">
         {posts.map((post) => {
           const user = users.find((user) => user.id === post.userId);
@@ -108,7 +169,9 @@ const HomePage: React.FC<HomePageProps> = ({ loggedInUser }) => {
                     Skomentuj
                     <div className="comment-count">{postComments.length}</div>
                   </button>
-                  
+                  <button onClick={() => handleDeletePost(post.id, loggedInUser)}>
+              Delete Post
+            </button>
                 </div>
               </div>
             </div>
