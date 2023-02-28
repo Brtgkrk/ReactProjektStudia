@@ -1,0 +1,31 @@
+.album-center
+{
+    text-align: center;
+    font-size: 22px;
+}
+
+.album-photo-container
+{
+    width: 80vw;
+}
+
+.album-photo-div
+{
+    width: 13.8vw;
+    height: 300px;
+    border: .1vw solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 1vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    float: left;
+}
+
+.album-photo
+{
+    width: 8vw;
+}
