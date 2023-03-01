@@ -42,6 +42,11 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ loggedInUser }) => {
           onClick={() => navigate(`/uzytkownicy`)}>
           Użytkownicy
         </button>
+        <button
+          className="comment-button"
+          onClick={() => navigate(`/zdjecia`)}>
+          Zdjęcia
+        </button>
       </div>
       <div className="navbar-right" onClick={() => navigate(`/uzytkownicy/${loggedInUserData.username}`)}>Witaj, {loggedInUser}!</div>
     </nav>
