@@ -6,6 +6,7 @@ import HomePage from "./components/HomePage";
 import PhotosPage from "./components/PhotosPage";
 import UserPage from "./components/UserPage";
 import UserList from "./components/UserList";
+import PhotosSearchPage from "./components/PhotosSearchPage";
 //import UserList from "./components/UserList";
 
 const App: React.FC = () => {
@@ -44,6 +45,11 @@ const App: React.FC = () => {
           <Route path="/" element={ <Login setLoggedInUser={setLoggedInUser} /> } />
         )}
 
+        {loggedInUser ? (
+          <Route path="/zdjecia" element={ <PhotosSearchPage loggedInUser={loggedInUser} /> } />
+        ) : (
+          <Route path="/" element={ <Login setLoggedInUser={setLoggedInUser} /> } />
+        )}
         
       </Routes>
     </div>
