@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/PostPage.css";
+import { Post } from "../types/Post";
 import NavigationBar from "./NavigationBar";
 
 type Comment = {
@@ -33,13 +34,6 @@ type User = {
     catchPhrase: string;
     bs: string;
   };
-};
-
-type Post = {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
 };
 
 type PostPageProps = {

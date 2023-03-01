@@ -4,6 +4,8 @@ import Login from "./components/LoginPage";
 import PostPage from "./components/PostPage";
 import HomePage from "./components/HomePage";
 import PhotosPage from "./components/PhotosPage";
+import UserPage from "./components/UserPage";
+import UserList from "./components/UserList";
 //import UserList from "./components/UserList";
 
 const App: React.FC = () => {
@@ -30,6 +32,19 @@ const App: React.FC = () => {
           <Route path="/" element={ <Login setLoggedInUser={setLoggedInUser} /> } />
         )}
 
+        {loggedInUser ? (
+          <Route path="/uzytkownicy" element={ <UserList loggedInUser={loggedInUser} /> } />
+        ) : (
+          <Route path="/" element={ <Login setLoggedInUser={setLoggedInUser} /> } />
+        )}
+
+        {loggedInUser ? (
+          <Route path="/uzytkownicy/:username" element={ <UserPage loggedInUser={loggedInUser} /> } />
+        ) : (
+          <Route path="/" element={ <Login setLoggedInUser={setLoggedInUser} /> } />
+        )}
+
+        
       </Routes>
     </div>
   );
