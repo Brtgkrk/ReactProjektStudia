@@ -1,0 +1,26 @@
+.user-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .user-details {
+    justify-content: space-between;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .user-details div {
+    margin: 0 20px;
+  }
+  
+  h2 {
+    margin-bottom: 10px;
+  }
+  
+  p {
+    margin: 0;
+  }
+
+  
+  

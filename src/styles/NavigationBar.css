@@ -7,3 +7,9 @@
   color: #fff;
   font-size: 20px;
 }
+
+.navbar-right:hover
+{
+  text-decoration: underline;
+  cursor: pointer;
+}

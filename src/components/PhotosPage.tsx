@@ -109,6 +109,36 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewPhoto((prev) => ({ ...prev, [name]: value }));
   };
 
+const handleDeletePhoto = async (id: number, userName: string) => {
+    if (loggedInUser === undefined || loggedInUser === null) {
+        alert("Musisz się zalogować, aby usunąć post!");
+        return;
+    }
+    const photo = photos.find(photo => photo.id === id);
+    if (photo)
+    {
+        const album = albums.find(album => album.id == photo.albumId);
+        if (album)
+        {
+            const user = users.find(user => user.id === album.userId);
+            if (user)
+            {
+                if (user.name !== userName) {
+                    alert("Nie masz uprawnień do usunięcia tego posta!");
+                    return;
+                }
+                await deletePhoto(id);
+            }
+        }
+    }
+};
+
+const deletePhoto = (id: number) => {
+    setPhotos(photos.filter((photo) => photo.id !== id));
+};
+
+const albumUserId = users.find((user) => user.name === loggedInUser)?.id;
+
 return (
     <div>
         <NavigationBar loggedInUser={loggedInUser}/>
@@ -138,6 +168,14 @@ return (
                   <div className="album-photo-div" key={photo.id}>
                     <img alt={photo.title} className="album-photo" src={photo.thumbnailUrl}/>
                     <p>{photo.title}</p>
+                    {
+                        currentAlbum?.userId == albumUserId ?
+                            <button onClick={() => handleDeletePhoto(photo.id, loggedInUser)}>
+                            Usuń zdjęcie
+                            </button>
+                        : 
+                            null
+                    }
                   </div>
                 ))}
               </div>
