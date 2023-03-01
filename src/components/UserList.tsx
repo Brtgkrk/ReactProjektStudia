@@ -43,7 +43,7 @@ const UserList: React.FC<UserListProps> = ({ loggedInUser }) => {
   return (
     <div className="album-center">
         <NavigationBar loggedInUser={loggedInUser}/>
-        <h1>Wszyscy użytkownicy:</h1>
+        <h2>Wszyscy użytkownicy:</h2>
         <input className="" type="text" value={searchText} onChange={handleSearchInputChange} placeholder="Wyszukaj użytkownika" />
         {userElements}
     </div>

@@ -1,4 +1,10 @@
-input[type="text"] {
+.number-input
+{
+  margin: 0 auto;
+  width: 420px;
+}
+
+input {
     height: 24px;
     width: 420px;
     text-align: center;
@@ -6,6 +12,7 @@ input[type="text"] {
     border: none;
     border-radius: 4px;
     background-color: #f1f1f1;
+    margin: 10px auto;
   }
 
 .list-user
