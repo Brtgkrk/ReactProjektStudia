@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useDropdown from 'react-dropdown-hook'; // by Mateusz Sowiński
 // Types
 import { User } from "../types/User";
 // Styles
@@ -9,46 +10,72 @@ type NavigationBarProps = {
   loggedInUser: string | null;
 };
 
-
-
 const NavigationBar: React.FC<NavigationBarProps> = ({ loggedInUser }) => {
-  let users: any[];
-  let loggedInUserData : User;
+  const [users, setUsers] = useState<User[]>([]);
+  const [loggedInUserData, setLoggedInUserData] = useState<User>();
+
   useEffect(() => {
   const fetchUsers = async () => {
       const response = await fetch(
         "https://jsonplaceholder.typicode.com/users"
       );
-      users = await response.json();
-      loggedInUserData = users.find((user) => user.name === loggedInUser);
-
+      setUsers(await response.json());
   };
   fetchUsers();
-  });
+  }, []);
+
+  useEffect(() => {
+    console.log("logged in user " + loggedInUserData?.username);
+    setLoggedInUserData(users.find((user) => user.username === loggedInUser));
+   },[users])
+
+  const handleLogout = () => {
+    localStorage.removeItem('loggedInUser');
+    navigate('/');
+  }
 
   const navigate = useNavigate();
+  const [wrapperRef, dropdownOpen, toggleDropdown, closeDropdown] = useDropdown();
   
   return (
     <nav className="navbar">
       <div className="navbar-left">
         <div onClick={() => navigate(`/`)}>Forum React</div>
-        <button
-          className="comment-button"
-          onClick={() => navigate(`/posty`)}>
-          Posty
-        </button>
-        <button
-          className="comment-button"
-          onClick={() => navigate(`/uzytkownicy`)}>
-          Użytkownicy
-        </button>
-        <button
-          className="comment-button"
-          onClick={() => navigate(`/zdjecia`)}>
-          Zdjęcia
+
+
+        <div ref={wrapperRef}>
+          <div onClick={toggleDropdown}>
+            ☰
+          </div>
+				{dropdownOpen &&
+					<>
+            <button
+            className="comment-button"
+            onClick={() => navigate(`/posty`)}>
+            Posty
+            </button>
+            <button
+              className="comment-button"
+              onClick={() => navigate(`/uzytkownicy`)}>
+              Użytkownicy
+            </button>
+            <button
+              className="comment-button"
+              onClick={() => navigate(`/zdjecia`)}>
+              Zdjęcia
+            </button>
+					</> 
+				}
+			  </div>
+        
+
+      </div>
+      <div className="navbar-right" onClick={() => navigate(`/uzytkownicy/${loggedInUser}`)}>
+        <span className="text-login">Zalogowano jako {loggedInUserData?.name}</span>
+        <button className="btn-red btn-logout" onClick={handleLogout}>
+        Wyloguj się
         </button>
       </div>
-      <div className="navbar-right" onClick={() => navigate(`/uzytkownicy/${loggedInUserData.username}`)}>Witaj, {loggedInUser}!</div>
     </nav>
   );
 };

@@ -158,7 +158,7 @@ const PostPage: React.FC<PostPageProps> = ({ loggedInUser }) => {
                 <div className="post-comments">
                   <button
                     className="comment-button"
-                    onClick={() => navigate(`/comments/${post.id}`)}
+                    onClick={() => navigate(`/posty/${post.id}`)}
                   >
                     Skomentuj
                     <div className="comment-count">{postComments.length}</div>
