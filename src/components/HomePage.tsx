@@ -59,6 +59,7 @@ return (
             {albums.map((album) => {
                 const user = users.find((user) => user.id === album.userId);
                 const albumPhotos = photos.filter((photo) => album.id === photo.albumId);
+                let maxPhotos = 10; // Liczba zdjec ograniczona aby przyspieszyc ladowanie aplikacji
                 return (
                     <div 
                         key={album.id} 
@@ -70,15 +71,18 @@ return (
                         </div>
                         <div className="album-body">
                             <div className="post-title">album: <b>{album.title}</b></div>
-                            <div>{
-                                albumPhotos.map((albumPhoto) => {
-                                    return(
-                                        <div>
-                                            <img src={albumPhoto.thumbnailUrl} alt={albumPhoto.title} id="album-photo"/>
-                                        </div>
-                                    );
-                                })
-                            }</div>
+                            
+                                <div>{ 
+                                    albumPhotos.map((albumPhoto, index) => {
+                                        const maxPhotosLeft = maxPhotos - index;
+                                        return maxPhotosLeft > 0 && (
+                                            <div>
+                                                <img src={albumPhoto.thumbnailUrl} alt={albumPhoto.title} id="album-photo"/>
+                                            </div>
+                                        );
+                                    })
+                                }</div>
+                            
                         </div>
                     </div>
                 );

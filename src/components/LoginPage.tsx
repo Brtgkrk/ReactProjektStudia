@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HomePage from "./UserList";
 import "../styles/LoginPage.css";
@@ -11,6 +11,7 @@ type LoginProps = {
 const Login: React.FC<LoginProps> = ({ setLoggedInUser }) => {
   const [username, setUsername] = useState("");
   const navigate = useNavigate();
+  const loginInfoRef = useRef<HTMLParagraphElement>(null);
 
   const handleLogin = async () => {
     const response = await fetch(
@@ -18,10 +19,13 @@ const Login: React.FC<LoginProps> = ({ setLoggedInUser }) => {
     );
     const users = await response.json();
     if (users.length > 0) {
-      setLoggedInUser(users[0].name);
+      //setLoggedInUser(users[0].name);
+      localStorage.setItem('loggedInUser', JSON.stringify(users[0].username));
+      console.log(`Zapisywanie użytkownika ${users[0].username} do pamięci lokalnej`);
       navigate("/");
-    } else {
-      alert("Użytkownik " + username + " nie istnieje!");
+    } else if (loginInfoRef.current) {
+      loginInfoRef.current.innerText = `Użytkownik ${username} nie istnieje!`;
+      loginInfoRef.current.style.color = "red";
     }
   };
 
@@ -29,6 +33,7 @@ const Login: React.FC<LoginProps> = ({ setLoggedInUser }) => {
     <div className="login-container">
       <div className="login-form">
         <h1 className="app-title">React Forum</h1>
+        <p>Użytkownik testowy: Bret</p>
         <input
           id="username-input"
           type="text"
@@ -39,6 +44,7 @@ const Login: React.FC<LoginProps> = ({ setLoggedInUser }) => {
         <button id="login-button" onClick={handleLogin}>
           Zaloguj się
         </button>
+        <p className="photos-info" ref={loginInfoRef}></p>
       </div>
     </div>
   );

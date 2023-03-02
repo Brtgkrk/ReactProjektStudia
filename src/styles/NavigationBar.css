@@ -8,8 +8,20 @@
   font-size: 20px;
 }
 
-.navbar-right:hover
-{
+.text-login:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+.btn-red {
+  background-color: #e93a3a;
+  transition: all .3s ease-in-out;
+}
+
+.btn-red:hover {
+  background-color: #c11717;
+}
+
+.btn-logout {
+  margin: 0 20px;
 }

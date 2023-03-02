@@ -61,7 +61,7 @@ const PhotosSearchPage: React.FC<PhotosSearchPageProps> = ({ loggedInUser }) => 
                 setSelectedPhoto(photo);
             }
             else if(photosInfoRef.current && albumId) {
-                photosInfoRef.current.innerText = 'Nie znaleziono żadnego zdjęcia w podanym albumie!';
+                photosInfoRef.current.innerText = 'Nie znaleziono zdjęcia w podanym albumie!';
                 photosInfoRef.current.style.color = 'red';
             }
             else if(photosInfoRef.current) {
