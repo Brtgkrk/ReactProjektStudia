@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/ReactProjektStudia/static/css/main.a83463d4.css",
-    "main.js": "/ReactProjektStudia/static/js/main.d7c71e43.js",
+    "main.js": "/ReactProjektStudia/static/js/main.453f448f.js",
     "index.html": "/ReactProjektStudia/index.html",
     "main.a83463d4.css.map": "/ReactProjektStudia/static/css/main.a83463d4.css.map",
-    "main.d7c71e43.js.map": "/ReactProjektStudia/static/js/main.d7c71e43.js.map"
+    "main.453f448f.js.map": "/ReactProjektStudia/static/js/main.453f448f.js.map"
   },
   "entrypoints": [
     "static/css/main.a83463d4.css",
-    "static/js/main.d7c71e43.js"
+    "static/js/main.453f448f.js"
   ]
 }
