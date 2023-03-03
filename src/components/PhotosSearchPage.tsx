@@ -3,9 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 // Components
 import NavigationBar from "./NavigationBar";
 // Types
-import { User } from "../types/User";
 import { Photo } from "../types/Photo";
-import { Album } from "../types/Album";
 // CSS
 import "../styles/PhotosPage.css"
 import "../styles/UserList.css"

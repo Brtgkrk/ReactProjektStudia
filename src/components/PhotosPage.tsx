@@ -100,6 +100,7 @@ const PhotosPage: React.FC<PhotosPageProps> = ({ loggedInUser }) => {
                 photoInfoRef.current.innerText = `Zdjęcie ${photo.title} zostało poprawnie dodane do albumu ${currentAlbum?.title}`;
                 photoInfoRef.current.style.color = "green";
             }
+            // Tutaj mozna wstawic zapytanie do API ktore wstawia nowe zdjecia
         }
     }
 
