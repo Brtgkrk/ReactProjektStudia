@@ -12,6 +12,8 @@ react-dropdown-hook 1.0.1 (https://github.com/SowinskiMateusz/js-tools)
 
 react-router-dom 6.8.1
 
+API: https://jsonplaceholder.typicode.com/
+
 ### TODO
 
 - [X] Strona logowania

@@ -40,15 +40,17 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ loggedInUser }) => {
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <div onClick={() => navigate(`/`)}>Forum React</div>
-
-
-        <div ref={wrapperRef}>
-          <div onClick={toggleDropdown}>
+        <div ref={wrapperRef} className="navbar-menu">
+          <div onClick={toggleDropdown} className = "navbar-button">
             ☰
           </div>
-				{dropdownOpen &&
+				  {dropdownOpen &&
 					<>
+            <button
+            className="comment-button"
+            onClick={() => navigate(`/`)}>
+            Strona główna
+            </button>
             <button
             className="comment-button"
             onClick={() => navigate(`/posty`)}>
@@ -65,10 +67,9 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ loggedInUser }) => {
               Zdjęcia
             </button>
 					</> 
-				}
+				  }
+          
 			  </div>
-        
-
       </div>
       <div className="navbar-right" onClick={() => navigate(`/uzytkownicy/${loggedInUser}`)}>
         <span className="text-login">Zalogowano jako {loggedInUserData?.name}</span>

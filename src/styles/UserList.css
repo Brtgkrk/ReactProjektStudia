@@ -4,7 +4,7 @@
   width: 420px;
 }
 
-input {
+input, textarea {
     height: 24px;
     width: 420px;
     text-align: center;

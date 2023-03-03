@@ -69,3 +69,40 @@
     margin: 30px auto;
     display: block;
 }
+
+input {
+    max-width: 50vw;
+}
+
+#file-input {
+    display: none;
+}
+
+.file-input-button {
+    background-color: #0095f6;
+    width: 96px;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 5px;
+  }
+  
+  .file-input-button:hover {
+    background-color: #0062f6;
+  }
+
+  .btn-sort {
+    width: 200px;
+    margin: 10px auto 0 calc(50vw - 110px);
+  }
+
+  .btn-del {
+    margin: 30px auto;
+  }
+  
+  .p-info {
+    text-align: center;
+  }
