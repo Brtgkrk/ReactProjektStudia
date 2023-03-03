@@ -146,41 +146,45 @@ const CommentsPage: React.FC<PhotosPageProps> = ({ loggedInUser }) => {
         <div>
             <>
             <NavigationBar loggedInUser={loggedInUser}/>
+            {(currentUserPost ?
             <div className="post-container">
-            <h2>{`Post użytkownika ${currentUserPost?.name}`}</h2>
-            <div className="post">
-            <h3>{post?.title}</h3>
-            <p>{post?.body}</p>
-            </div>
-            <div className="comments-container">
-            <h3>Napisz komentarz</h3>
-            <form onSubmit={handleSubmit} ref={formRef}>
-                <input type="text" name="name" ref={nameRef} placeholder="Nagłówek komentarza"/>
-                <textarea name="body" ref={bodyRef} className="text-comment" placeholder="Komentarz" />
-                <button type="submit">
-                    Dodaj komentarz
-                </button>
-            </form>
-            <p ref={commentInfoRef}></p>
-            <p className="comment-info" ref={commentInfoRef}></p>
-            <h3>Wszystkie komentarze</h3>
-            {comments.slice(0).reverse().map((comment) => (
-                <div className="comment" key={comment.id}>
-                <h4>{comment.email}</h4>
-                <h5>{comment.name}</h5>
-                <p>{comment.body}</p>
-                {
-                    comment.email === loggedInUserData?.email ?
-                        <button className="btn-red" onClick={() => handleDeleteComment(comment.id, comment.email)}>
-                            Usuń komentarz
-                        </button>
-                    : 
-                        null
-                }
+                <h2>{`Post użytkownika ${currentUserPost?.name}`}</h2>
+                <div className="post">
+                <h3>{post?.title}</h3>
+                <p>{post?.body}</p>
                 </div>
-            ))}
+                <div className="comments-container">
+                <h3>Napisz komentarz</h3>
+                <form onSubmit={handleSubmit} ref={formRef}>
+                    <input type="text" name="name" ref={nameRef} placeholder="Nagłówek komentarza"/>
+                    <textarea name="body" ref={bodyRef} className="text-comment" placeholder="Komentarz" />
+                    <button type="submit">
+                        Dodaj komentarz
+                    </button>
+                </form>
+                <p ref={commentInfoRef}></p>
+                <p className="comment-info" ref={commentInfoRef}></p>
+                <h3>Wszystkie komentarze</h3>
+                {comments.slice(0).reverse().map((comment) => (
+                    <div className="comment" key={comment.id}>
+                    <h4>{comment.email}</h4>
+                    <h5>{comment.name}</h5>
+                    <p>{comment.body}</p>
+                    {
+                        comment.email === loggedInUserData?.email ?
+                            <button className="btn-red" onClick={() => handleDeleteComment(comment.id, comment.email)}>
+                                Usuń komentarz
+                            </button>
+                        : 
+                            null
+                    }
+                    </div>
+                ))}
+                </div>
             </div>
-        </div>
+            :
+            <h1 className="msg-err user-err">Post o id {postId} nie istnieje!</h1>
+            )}
             </>
         </div>
     );

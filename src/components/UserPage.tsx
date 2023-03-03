@@ -140,8 +140,14 @@ const UserPage: React.FC<UserPageProps> = ({
             setIsEditing(false);
             setEditedValue(value);
             setErrorMessage("");
-            dataInfoRef.current.innerText = `${changingFieldType} pomyślnie zmienione na ${editedValue}`;
-            dataInfoRef.current.style.color = "green";
+            if (editedValue) {
+                dataInfoRef.current.innerText = `${changingFieldType} pomyślnie zmienione na ${editedValue}`;
+                dataInfoRef.current.style.color = "green";
+            }
+            else {
+                dataInfoRef.current.innerText = `Wprowadź proszę jakąś wartość`;
+                dataInfoRef.current.style.color = "red";
+            }
         }
     };
     
