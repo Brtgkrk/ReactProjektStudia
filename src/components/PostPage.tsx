@@ -1,40 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/PostPage.css";
-import { Post } from "../types/Post";
 import NavigationBar from "./NavigationBar";
-
-type Comment = {
-  postId: number;
-  id: number;
-  name: string;
-  email: string;
-  body: string;
-};
-
-type User = {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  address: {
-    street: string;
-    suite: string;
-    city: string;
-    zipcode: string;
-    geo: {
-      lat: string;
-      lng: string;
-    };
-  };
-  phone: string;
-  website: string;
-  company: {
-    name: string;
-    catchPhrase: string;
-    bs: string;
-  };
-};
+// Types
+import { Post } from "../types/Post";
+import { User } from "../types/User";
+import { Comment } from "../types/Comment";
+// Styles
+import "../styles/PostPage.css";
 
 type PostPageProps = {
   loggedInUser: string;
@@ -45,7 +17,9 @@ const PostPage: React.FC<PostPageProps> = ({ loggedInUser }) => {
   const [newPost, setNewPost] = useState<Post>({ id: 0, userId: 0, title: "", body: "" });
   const [users, setUsers] = useState<User[]>([]);
   const [comments, setComments] = useState<Comment[]>([]);
+  const [currentUserData, setCurrentUserData] = useState<User>();
   const navigate = useNavigate();
+  const postInfoRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -75,16 +49,38 @@ const PostPage: React.FC<PostPageProps> = ({ loggedInUser }) => {
   fetchPosts();
   fetchUsers();
   fetchComments();
-}, []);
+  }, []);
+
+  useEffect(() => {
+    const setCurrentUser = () => {
+      setCurrentUserData(users.find(user => user.username === loggedInUser));
+    }
+    setCurrentUser();
+  },[users])
 
   const handleAddPost = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
     const highestId = Math.max(...posts.map((p) => p.id));
     const newId = highestId + 1;
     
     if (newPost.title.trim() && newPost.body.trim() && newId) {
-      setPosts([...posts, newPost]);
+      if (currentUserData)
+        setNewPost({ id: 0, userId: currentUserData.id, title: "", body: "" });
+      console.log(newPost);
+      console.log(currentUserData);
+      if (currentUserData)
+      setPosts([...posts, { id: newPost.id, userId: currentUserData.id, title: newPost.title, body: newPost.body }]);
       setNewPost({ id: 0, userId: 0, title: "", body: "" });
+      if (postInfoRef.current)
+      {
+        postInfoRef.current.innerText = `Twój post został pomyślnie dodany na końcu listy`;
+        postInfoRef.current.style.color = "green";
+      }
+    }
+    else if (postInfoRef.current) {
+      postInfoRef.current.innerText = `Wypełnij tytuł i zawartość posta!`;
+      postInfoRef.current.style.color = "red";
     }
   };
 
@@ -102,44 +98,43 @@ const PostPage: React.FC<PostPageProps> = ({ loggedInUser }) => {
     if (post) {
       const user = users.find(user => user.id === post.userId);
       if (user) {
-        if (user.name !== userName) {
+        if (user.name !== currentUserData?.name) {
           alert("Nie masz uprawnień do usunięcia tego posta!");
           return;
         }
       }
     }
     await deletePost(id);
-    //const data = await fetchPosts();
-    //setPosts(data);
   };
 
   const deletePost = (id: number) => {
     setPosts(posts.filter((post) => post.id !== id));
   };
-  
 
   return (
     <div>
       <NavigationBar loggedInUser={loggedInUser}/>
-
-      <h1>Posts</h1>
+      <h3 className="text-center">Dodaj własny post</h3>
       <form onSubmit={handleAddPost}>
         <input
           type="text"
           name="title"
-          placeholder="Enter a title"
+          placeholder="Tytuł"
           value={newPost.title}
           onChange={handleInputChange}
+          className="input-photo"
         />
         <textarea
           name="body"
-          placeholder="Enter a body"
+          placeholder="Zawartość"
           value={newPost.body}
           onChange={handleInputChange}
+          className = "post-body"
         />
-        <button type="submit">Add Post</button>
+        <button type="submit">Dodaj post</button>
       </form>
-
+      <p ref={postInfoRef} className="text-center"></p>
+      <h2 className="text-center">Wszystkie posty użytkowników</h2>
       <div className="post-container">
         {posts.map((post) => {
           const user = users.find((user) => user.id === post.userId);
@@ -150,7 +145,7 @@ const PostPage: React.FC<PostPageProps> = ({ loggedInUser }) => {
           return (
             <div key={post.id} className="post">
               <div className="post-header">
-                <div className="post-author">{user?.name}</div>
+                <div className="post-author text-underline" onClick={() => navigate(`/uzytkownicy/${user?.username}`)}>{user?.name}</div>
               </div>
               <div className="post-body">
                 <div className="post-title">{post.title}</div>
@@ -160,12 +155,14 @@ const PostPage: React.FC<PostPageProps> = ({ loggedInUser }) => {
                     className="comment-button"
                     onClick={() => navigate(`/posty/${post.id}`)}
                   >
-                    Skomentuj
-                    <div className="comment-count">{postComments.length}</div>
+                    Skomentuj ({postComments.length})
                   </button>
-                  <button onClick={() => handleDeletePost(post.id, loggedInUser)}>
-                    Delete Post
-                  </button>
+                  { (post.userId === currentUserData?.id) ?
+                    <button onClick={() => handleDeletePost(post.id, loggedInUser)} className="btn-red">
+                    Usuń post
+                    </button>
+                    : null
+                  }
                 </div>
               </div>
             </div>

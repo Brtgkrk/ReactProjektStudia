@@ -66,14 +66,12 @@ const PhotosPage: React.FC<PhotosPageProps> = ({ loggedInUser }) => {
             );
             const albumData = await albumResponse.json();
             setAlbum(albumData);
-            console.log("curent albumData: " + albumData);
     
             const authorResponse = await fetch(
             `https://jsonplaceholder.typicode.com/users/${albumData.userId}`
             );
             const authorData = await authorResponse.json();
             setAuthor(authorData);
-            console.log("curent authorData: " + authorData);
         }
 
         fetchData();
@@ -151,7 +149,7 @@ const PhotosPage: React.FC<PhotosPageProps> = ({ loggedInUser }) => {
     return (
         <div>
             <NavigationBar loggedInUser={loggedInUser}/>
-
+            {(albumAuthor?.name ? <>
             <div className="album-center">
                 Album: <b>{currentAlbum?.title}</b>, autor: <b>{albumAuthor?.name}</b>
             </div>
@@ -164,6 +162,7 @@ const PhotosPage: React.FC<PhotosPageProps> = ({ loggedInUser }) => {
                     placeholder="Wpisz nazwe zdjecia"
                     value={newPhoto.title}
                     onChange={handleInputChange}
+                    className="input-photo"
                     />
 
                     <label htmlFor="file-input" className="file-input-button">
@@ -209,7 +208,9 @@ const PhotosPage: React.FC<PhotosPageProps> = ({ loggedInUser }) => {
                     </div>
                 }
             </div>
-
+            </>:
+            <h1 className="msg-err user-err">Album o id {albumId} nie istnieje!</h1>
+            )}
         </div>
     );
 }

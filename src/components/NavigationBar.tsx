@@ -25,7 +25,6 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ loggedInUser }) => {
   }, []);
 
   useEffect(() => {
-    console.log("logged in user " + loggedInUserData?.username);
     setLoggedInUserData(users.find((user) => user.username === loggedInUser));
    },[users])
 
@@ -71,7 +70,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ loggedInUser }) => {
           
 			  </div>
       </div>
-      <div className="navbar-right" onClick={() => navigate(`/uzytkownicy/${loggedInUser}`)}>
+      <div className="navbar-right" onClick={() => {navigate(`/uzytkownicy/${loggedInUser}`);}  }>
         <span className="text-login">Zalogowano jako {loggedInUserData?.name}</span>
         <button className="btn-red btn-logout" onClick={handleLogout}>
         Wyloguj się
