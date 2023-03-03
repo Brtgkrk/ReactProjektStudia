@@ -28,6 +28,7 @@ const App: React.FC = () => {
   }, [loggedInUser, navigate]);
 
   return (
+    
     <div className="App">
       <Routes>
         {loggedInUser ? (
