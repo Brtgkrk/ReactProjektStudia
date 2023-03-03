@@ -1,12 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 // Components
 import NavigationBar from "./NavigationBar";
 // Types
 import { User } from "../types/User";
-import { Photo } from "../types/Photo";
 import { Album } from "../types/Album";
 import { Post } from "../types/Post";
 // CSS
@@ -25,8 +23,6 @@ const UserPage: React.FC<UserPageProps> = ({
     loggedInUser, 
     label,
     value = "",
-    fieldType,
-    onSave
     }) => {
     const [currentUser, setCurrentUser] = useState<User>();
     const [albums, setAlbums] = useState<Album[]>([]);
@@ -128,7 +124,7 @@ const UserPage: React.FC<UserPageProps> = ({
             if (changingFieldType === "Email" && currentUser && editedValue) currentUser.email = editedValue;
             if (changingFieldType === "Telefon" && currentUser && editedValue) currentUser.phone = editedValue;
             if (changingFieldType === "Strona" && currentUser && editedValue) currentUser.website = editedValue;
-            if (changingFieldType === "Ulice" && currentUser && editedValue) currentUser.address.street = editedValue;
+            if (changingFieldType === "Ulica" && currentUser && editedValue) currentUser.address.street = editedValue;
             if (changingFieldType === "Mieszkanie" && currentUser && editedValue) currentUser.address.suite = editedValue;
             if (changingFieldType === "Miasto" && currentUser && editedValue) currentUser.address.city = editedValue;
             if (changingFieldType === "Kod pocztowy" && currentUser && editedValue) currentUser.address.zipcode = editedValue;
@@ -177,7 +173,7 @@ const UserPage: React.FC<UserPageProps> = ({
                     <h1>{currentUser?.name}</h1>
                     {(currentUser?.username === loggedInUser) ? <div className="info-edit">
                         <p className="p-green">
-                            istnieje możliwość edycji danych
+                            Istnieje możliwość edycji danych
                         </p>
                         <p className="p-green">
                             Wystarczy kliknąć na dane do zmiany
@@ -213,7 +209,7 @@ const UserPage: React.FC<UserPageProps> = ({
                         </div>
                         <div>
                             <h2>Adres:</h2>
-                            <p onClick={handleDataClick("Ulice")} className="p-user">Ulice: {currentUser?.address.street}</p>
+                            <p onClick={handleDataClick("Ulica")} className="p-user">Ulica: {currentUser?.address.street}</p>
                             <p onClick={handleDataClick("Mieszkanie")} className="p-user">Mieszkanie: {currentUser?.address.suite}</p>
                             <p onClick={handleDataClick("Miasto")} className="p-user">Miasto: {currentUser?.address.city}</p>
                             <p onClick={handleDataClick("Kod pocztowy")} className="p-user">Kod pocztowy: {currentUser?.address.zipcode}</p>
@@ -226,8 +222,6 @@ const UserPage: React.FC<UserPageProps> = ({
                             <p onClick={handleDataClick("Slogan")} className="p-user">Slogan: {currentUser?.company.catchPhrase}</p>
                             <p onClick={handleDataClick("BS")} className="p-user">BS: {currentUser?.company.bs}</p>
                         </div>
-
-
 
                         <div className="post-container">
                             <h2>Posty użytkownika {currentUser?.username}:</h2>
@@ -277,4 +271,3 @@ const UserPage: React.FC<UserPageProps> = ({
 }
 
 export default UserPage;
-

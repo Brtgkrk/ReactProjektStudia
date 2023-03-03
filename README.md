@@ -4,15 +4,15 @@ Przedmiot: Frameworki front-endowe
 
 ### Specyfikacja
 
-React 18.2.0
-
-TypeScript
+React 18.2.0 + TypeScript
 
 react-dropdown-hook 1.0.1 (https://github.com/SowinskiMateusz/js-tools)
 
 react-router-dom 6.8.1
 
 API: https://jsonplaceholder.typicode.com/
+
+Jako, że zewnętrzne API pozwala tylko na pobieranie danych, elementy wprowadzone przez użytkownika istnieją tylko na czas życia danego komponentu. Dodając własny backend można ten problem wyeliminować.
 
 ### TODO
 

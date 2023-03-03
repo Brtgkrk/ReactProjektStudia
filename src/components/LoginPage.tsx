@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import HomePage from "./UserList";
+// Styles
 import "../styles/LoginPage.css";
-import {User} from "../types/User";
 
 type LoginProps = {
   setLoggedInUser: React.Dispatch<React.SetStateAction<string | null>>;
