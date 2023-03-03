@@ -6,6 +6,7 @@
   padding: 10px;
   color: #fff;
   font-size: 20px;
+
 }
 
 .text-login:hover {
@@ -24,4 +25,25 @@
 
 .btn-logout {
   margin: 0 20px;
+}
+
+.logo {
+  float: left;
+}
+
+.logo:hover {
+  cursor: pointer;
+}
+
+.navbar-menu {
+  float: left;
+  margin: 12px 10px 0 0;
+}
+
+.navbar-menu:hover {
+  cursor: pointer;
+}
+
+.navbar-button {
+  width: 20px;
 }

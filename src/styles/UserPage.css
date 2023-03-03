@@ -53,10 +53,10 @@ p {
   background-color: #e0e0e0;
 }
 
-.btn-save {
-  display: block;
-} 
+.msg-err {
+  color: red;
+}
 
-.btn-cancel {
-
+.user-err {
+  text-align: center;
 }

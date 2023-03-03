@@ -22,8 +22,9 @@ const CommentsPage: React.FC<PhotosPageProps> = ({ loggedInUser }) => {
     const [newComment, setNewComment] = useState<Comment>({ postId: 0, id: 0, name: "", email: "", body: ""});
     const { postId } = useParams();
     const nameRef = useRef<HTMLInputElement>(null);
-    const bodyRef = useRef<HTMLInputElement>(null);
+    const bodyRef = useRef<HTMLTextAreaElement>(null);
     const commentInfoRef = useRef<HTMLParagraphElement>(null);
+    const formRef = useRef<HTMLFormElement>(null);
     const [loggedInUserData, setLoggedInUserData] = useState<User>();
 
     const fetchUsers = async () => {
@@ -85,16 +86,17 @@ const CommentsPage: React.FC<PhotosPageProps> = ({ loggedInUser }) => {
 
     // Obsluga komentarzy uzytkownika
     const handleAddComment = (name : string, body : string) => {    
-        if (postId !== undefined && currentUserPost?.email)
+        if (postId !== undefined && loggedInUserData?.email)
         {
             const newComment = {
                 postId: parseInt(postId!),
                 id: comments.length + 1,
                 name: name,
-                email: currentUserPost?.email,
+                email: loggedInUserData?.email,
                 body: body,
             }
             setComments([...comments, newComment]);
+            // Tutaj moze byc asynchroniczne zapytanie do API ktore dodaje nowe komentarze
         }
     }
 
@@ -102,9 +104,20 @@ const CommentsPage: React.FC<PhotosPageProps> = ({ loggedInUser }) => {
         e.preventDefault();
         if (nameRef.current && bodyRef.current)
         {
-            const name = nameRef.current.value;
-            const body = bodyRef.current.value;
-            handleAddComment(name, body);
+            if (nameRef.current.value != "" && bodyRef.current.value != "" && commentInfoRef.current) {
+                const name = nameRef.current.value;
+                const body = bodyRef.current.value;
+                handleAddComment(name, body);
+                commentInfoRef.current.innerText = `Twój komentarz został dodany!`;
+                commentInfoRef.current.style.color = "green";
+                if (formRef.current) {
+                    formRef.current.reset();
+                }
+            }
+            else if (commentInfoRef.current) {
+                commentInfoRef.current.innerText = `Komentarz nie może byc pusty!!`;
+                commentInfoRef.current.style.color = "red";
+            }
         }
       };
 
@@ -141,14 +154,15 @@ const CommentsPage: React.FC<PhotosPageProps> = ({ loggedInUser }) => {
             </div>
             <div className="comments-container">
             <h3>Napisz komentarz</h3>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="name" ref={nameRef}/>
-                <input type="text" name="body" ref={bodyRef}/>
+            <form onSubmit={handleSubmit} ref={formRef}>
+                <input type="text" name="name" ref={nameRef} placeholder="Nagłówek komentarza"/>
+                <textarea name="body" ref={bodyRef} className="text-comment" placeholder="Komentarz" />
                 <button type="submit">
                     Dodaj komentarz
                 </button>
             </form>
             <p ref={commentInfoRef}></p>
+            <p className="comment-info" ref={commentInfoRef}></p>
             <h3>Wszystkie komentarze</h3>
             {comments.slice(0).reverse().map((comment) => (
                 <div className="comment" key={comment.id}>

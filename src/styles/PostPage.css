@@ -47,17 +47,12 @@
 }
 
 .comment-button {
-  margin-top: 10px;
-  background-color: #3957dd;
+  margin: 10px;
   color: #fff;
   border: none;
   border-radius: 5px;
   padding: 5px 10px;
   cursor: pointer;
-}
-
-.comment-button:hover {
-  background-color: #8e39dd
 }
 
 .comment-count {
