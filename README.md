@@ -16,9 +16,9 @@ react-router-dom 6.8.1
 
 - [X] Strona logowania
 
-- [] Strona z głównym feedem ze zdjęciami - możliwość przeglądania folderów oraz wszystkich zdjęć, możliwość filtrowania po konkretnym userze, możliwość dodawania nowych zdjęć. możliwość usuwania zdjęć ale tylko własnych
+- [X] Strona z głównym feedem ze zdjęciami - możliwość przeglądania folderów oraz wszystkich zdjęć, możliwość filtrowania po konkretnym userze, możliwość dodawania nowych zdjęć. możliwość usuwania zdjęć ale tylko własnych
 
-- [] Strona użytkownika zalogowanego ze wszystkimi danymi, z jego postami, z jego zdjęciami + możliwość edycji danych usera ale tylko zalogowanego
+- [X] Strona użytkownika zalogowanego ze wszystkimi danymi, z jego postami, z jego zdjęciami + możliwość edycji danych usera ale tylko zalogowanego
 
 - [X] Wyszukiwarka userów (po name)
 

@@ -1,26 +1,62 @@
 .user-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
   
-  .user-details {
-    justify-content: space-between;
-    text-align: center;
-    width: 100%;
-  }
-  
-  .user-details div {
-    margin: 0 20px;
-  }
-  
-  h2 {
-    margin-bottom: 10px;
-  }
-  
-  p {
-    margin: 0;
-  }
+.user-details {
+  justify-content: space-between;
+  text-align: center;
+  width: 100%;
+}
 
-  
-  
+.user-details div {
+  margin: 0 20px;
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+p {
+  margin: 0;
+}
+
+.p-green {
+  color: rgb(70, 209, 93);
+}
+
+.info-edit {
+  width: 360px;
+  text-align: center;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  margin: 10px auto;
+  font-weight: bold;
+}
+
+.p-user {
+  height: 24px;
+  width: 420px;
+  text-align: center;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  margin: 10px auto;
+}
+
+.p-user:hover {
+  cursor: pointer;
+  background-color: #e0e0e0;
+}
+
+.btn-save {
+  display: block;
+} 
+
+.btn-cancel {
+
+}
