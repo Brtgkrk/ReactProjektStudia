@@ -1,8 +1,8 @@
-# Aplikacja React - projekt na studia
+# React Application - a project for studies
 
-Przedmiot: Frameworki front-endowe
+Subject: Front-end Frameworks
 
-### Specyfikacja
+### Specification
 
 React 18.2.0 + TypeScript
 
@@ -12,22 +12,22 @@ react-router-dom 6.8.1
 
 API: https://jsonplaceholder.typicode.com/
 
-Jako, że zewnętrzne API pozwala tylko na pobieranie danych, elementy wprowadzone przez użytkownika istnieją tylko na czas życia danego komponentu. Dodając własny backend można ten problem wyeliminować.
+As the external API only allows for data retrieval, user-entered elements exist only for the lifetime of the given component. Adding your own backend can eliminate this problem.
 
 ### TODO
 
-- [X] Strona logowania
+- [X] Login page
 
-- [X] Strona z głównym feedem ze zdjęciami - możliwość przeglądania folderów oraz wszystkich zdjęć, możliwość filtrowania po konkretnym userze, możliwość dodawania nowych zdjęć. możliwość usuwania zdjęć ale tylko własnych
+- [X] Main feed page with photos - possibility to browse through folders and all photos, possibility to filter by a specific user, possibility to add new photos, possibility to delete photos but only your own ones
 
-- [X] Strona użytkownika zalogowanego ze wszystkimi danymi, z jego postami, z jego zdjęciami + możliwość edycji danych usera ale tylko zalogowanego
+- [X] Logged-in user page with all data, with their posts, with their photos + possibility to edit user data but only for logged-in user
 
-- [X] Wyszukiwarka userów (po name)
+- [X] User search (by name)
 
-- [X] Wyszukiwarka zdjęć (po id zdjęcia oraz albumu)
+- [X] Photo search (by photo ID and album)
 
-- [X] strona z postami - post plus info o userze który go napisał, możliwość usuwania postów ale tylko swoich
+- [X] Posts page - post plus info about the user who wrote it, possibility to delete posts but only your own ones
 
-- [X] możliwość wysyłania postów
+- [X] Creating posts
 
-- [X] pod każdym postem mają być komentarze do postu oraz możliwość wysyłania komentarzy do postu. możliwość usuwania komentarzy ale tylko swoich
+- [X] Under each post, there should be comments on the post and the possibility to send comments to the post. Possibility to delete comments but only your own ones
