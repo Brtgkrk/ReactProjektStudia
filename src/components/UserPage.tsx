@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import "leaflet/dist/leaflet.css";
 // Components
 import NavigationBar from "./NavigationBar";
 // Types
@@ -44,7 +43,9 @@ const UserPage: React.FC<UserPageProps> = ({
             "https://jsonplaceholder.typicode.com/users"
             );
             const data = await response.json();
-            setCurrentUser(data.find((user: { username: string | undefined; })=> user.username === username));
+            let cUser = username;
+            if (username === undefined) cUser = loggedInUser;
+            setCurrentUser(data.find((user: { username: string | undefined; })=> user.username === cUser));
         };
 
         fetchCurrentUser();
@@ -157,9 +158,9 @@ const UserPage: React.FC<UserPageProps> = ({
         return () => {
             if (currentUser?.username === loggedInUser) {
                 setChangingFieldType(type);
-                console.log(`Zmiana wybranego pola na ${changingFieldType}`);
+                //console.log(`Zmiana wybranego pola na ${changingFieldType}`);
                 setIsEditing(true);
-                window.scrollTo({ top: 0, behavior: "smooth" });
+                //window.scrollTo({ top: 0, behavior: "smooth" });
                 if (dataInfoRef.current) dataInfoRef.current.innerText = ``;
             }
         }
@@ -186,6 +187,7 @@ const UserPage: React.FC<UserPageProps> = ({
                     {isEditing ? (
                         <div>
                         <input
+                            placeholder="wprowadz wartosc"
                             type={changingFieldType === "email" ? "email" : "text"}
                             value={editedValue}
                             onChange={handleInputChange}
